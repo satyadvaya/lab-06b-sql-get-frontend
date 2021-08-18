@@ -1,0 +1,17 @@
+header {
+    width: 100vw;
+    height: 40px;
+    background-color: #c3f3c0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.active {
+    text-decoration: none;
+    color: #462255;
+}
+
+a {
+    margin: 10px;
+    color: #313b72;
+}
