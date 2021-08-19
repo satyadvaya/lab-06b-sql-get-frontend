@@ -1,0 +1,18 @@
+.soup-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.soup-card {
+    margin: 5px;
+    padding: 10px;
+    width: 30vw;
+    border: 2px solid #313b72;
+    border-radius: 5px;
+    background-color: linen;
+    text-align: center;
+}
+
+/* .soup-card img {
+    width: 100%;
+} */
