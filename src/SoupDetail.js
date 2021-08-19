@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getSoup, getCategories } from './fetch-utils.js';
+import { getSoup, getCategories, updateSoup } from './fetch-utils.js';
 
 class SoupDetail extends Component {
     state = {
@@ -18,6 +18,29 @@ class SoupDetail extends Component {
         const categories = await getCategories();
         this.setState({ ...soupData, categories });
     };
+
+    getCategoryId = () => {
+        const categoryObject = this.state.categories.find(
+            (cat) => cat.name === this.state.category
+        );
+        return categoryObject.id;
+    };
+
+    handleClick = async (event) => {
+        event.preventDefault();
+        // get category_id from the list of categories
+        // gather new soup data from state
+        const soupData = {
+            id: this.state.id,
+            name: this.state.name,
+            category_id: this.getCategoryId(),
+            seasonal: this.state.seasonal,
+            tastiness: this.state.tastiness
+        };
+        console.log(soupData);
+        // call updateSoup from fetch-utils
+        const data = await updateSoup(soupData);
+    }
 
     render() { 
         return (
@@ -75,7 +98,12 @@ class SoupDetail extends Component {
                     </div>
                     <div className='form-group'>
                         <label>Category: </label>
-                        <select>
+                        <select
+                            value={this.state.category}
+                            onChange={(event) => {
+                                this.setState({ category: event.target.value });
+                            }}
+                        >
                             {this.state.categories.map((cat) => {
                                 return (
                                     <option value={cat.name}>{cat.name}</option>
@@ -83,6 +111,7 @@ class SoupDetail extends Component {
                             })}
                         </select>
                     </div>
+                    <button onClick={this.handleClick}>Update Soup</button>
                 </form>
             </>
         );
