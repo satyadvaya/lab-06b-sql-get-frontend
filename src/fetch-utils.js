@@ -26,7 +26,7 @@ export const updateSoup = async (soupObject) => {
         },
         body: JSON.stringify(soupObject),
     });
+    console.log(resp.status);
     const data = await resp.json();
-    console.log(data);
     return data;
 };

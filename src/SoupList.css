@@ -16,3 +16,21 @@
 /* .soup-card img {
     width: 100%;
 } */
+
+.message {
+    width: 100%;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    height: 2rem;
+    font-size: 1.5rem;
+}
+
+.message.success {
+    background-color: green;
+}
+
+.message.error {
+    background-color: red;
+}

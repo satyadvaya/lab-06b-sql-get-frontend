@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { getSoup, getCategories, updateSoup } from './fetch-utils.js';
+import classNames from 'classnames';
 
 class SoupDetail extends Component {
     state = {
@@ -8,12 +9,15 @@ class SoupDetail extends Component {
         category_id: 0,
         seasonal: '',
         tastiness: 0,
-        categories: []
+        categories: [],
+        message: '',
+        error: false
     };
 
     componentDidMount = async () => {
         // when page loads we need to fetch our data
-        const soupId = this.props.match.params.soupId;
+        const soupId = this.props.match.params.id;
+        console.log(soupId);
         const soupData = await getSoup(soupId);
         const categories = await getCategories();
         this.setState({ ...soupData, categories });
@@ -37,14 +41,35 @@ class SoupDetail extends Component {
             seasonal: this.state.seasonal,
             tastiness: this.state.tastiness
         };
-        console.log(soupData);
         // call updateSoup from fetch-utils
         const data = await updateSoup(soupData);
-    }
+        if(data.error) {
+            // display the error
+            this.setState({ message: data.error, error: true });
+        } else {
+            // display success
+            this.setState({ message: 'Soup Updated!', error: false});
+            // remove message after 2 seconds
+            setTimeout(() => {
+                this.setState({ message: '' });
+            }, 2000);
+        };
+    };
 
     render() { 
         return (
             <>
+                {this.state.message && (
+                    <div 
+                    className={classNames({
+                        message: true, 
+                        error: this.state.error, 
+                        success: !this.state.error
+                        })}
+                    >
+                        {this.state.message}
+                    </div>
+                )}
                 <h1>{this.state.name}</h1>
                 {/* <img src={this.state.image_url} alt='cover' /> */}
                 <form id='update-soup'>
@@ -106,8 +131,8 @@ class SoupDetail extends Component {
                         >
                             {this.state.categories.map((cat) => {
                                 return (
-                                    <option value={cat.name}>{cat.name}</option>
-                                )
+                                    <option key={cat.id} value={cat.name}>{cat.name}</option>
+                                );
                             })}
                         </select>
                     </div>
@@ -115,7 +140,7 @@ class SoupDetail extends Component {
                 </form>
             </>
         );
-    };
+    }
 }
  
 export default SoupDetail;
