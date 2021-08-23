@@ -30,3 +30,16 @@ export const updateSoup = async (soupObject) => {
     const data = await resp.json();
     return data;
 };
+
+export const createSoup = async (soupObject) => {
+    const resp = await fetch(`${URL}/soups`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(soupObject),
+    });
+    console.log(resp.status);
+    const data = await resp.json();
+    return data;
+};

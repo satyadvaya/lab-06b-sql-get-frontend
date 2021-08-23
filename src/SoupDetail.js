@@ -6,6 +6,7 @@ class SoupDetail extends Component {
     state = {
         id: 0,
         name: '',
+        // image_url: '',
         category_id: 0,
         seasonal: '',
         tastiness: 0,
@@ -17,7 +18,6 @@ class SoupDetail extends Component {
     componentDidMount = async () => {
         // when page loads we need to fetch our data
         const soupId = this.props.match.params.id;
-        console.log(soupId);
         const soupData = await getSoup(soupId);
         const categories = await getCategories();
         this.setState({ ...soupData, categories });
@@ -37,18 +37,19 @@ class SoupDetail extends Component {
         const soupData = {
             id: this.state.id,
             name: this.state.name,
+            // image_url: this.state.image_url,
             category_id: this.getCategoryId(),
             seasonal: this.state.seasonal,
             tastiness: this.state.tastiness
         };
         // call updateSoup from fetch-utils
         const data = await updateSoup(soupData);
-        if(data.error) {
+        if (data.error) {
             // display the error
             this.setState({ message: data.error, error: true });
         } else {
             // display success
-            this.setState({ message: 'Soup Updated!', error: false});
+            this.setState({ message: 'Cartoon Updated!', error: false });
             // remove message after 2 seconds
             setTimeout(() => {
                 this.setState({ message: '' });
@@ -56,15 +57,15 @@ class SoupDetail extends Component {
         };
     };
 
-    render() { 
+    render() {
         return (
             <>
                 {this.state.message && (
                     <div 
-                    className={classNames({
-                        message: true, 
-                        error: this.state.error, 
-                        success: !this.state.error
+                        className={classNames({
+                            message: true, 
+                            error: this.state.error, 
+                            success: !this.state.error
                         })}
                     >
                         {this.state.message}
