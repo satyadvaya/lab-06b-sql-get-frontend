@@ -17,7 +17,7 @@ class SoupList extends Component {
                 {this.state.soups.map((booger) => (
                     <div className='soup-card'>
                         <h2>
-                            <Link to={`/soups/${booger.id}`}>{booger.name}</Link>
+                            <Link key={booger.id} to={`/soups/${booger.id}`}>{booger.name}</Link>
                         </h2>
                         {/* <img src={booger.image_url} /> */}
                     </div>
