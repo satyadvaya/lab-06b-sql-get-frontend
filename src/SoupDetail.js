@@ -8,7 +8,7 @@ class SoupDetail extends Component {
         name: '',
         // image_url: '',
         category_id: 0,
-        seasonal: '',
+        seasonal: 'false',
         tastiness: 0,
         categories: [],
         message: '',
@@ -49,7 +49,7 @@ class SoupDetail extends Component {
             this.setState({ message: data.error, error: true });
         } else {
             // display success
-            this.setState({ message: 'Cartoon Updated!', error: false });
+            this.setState({ message: `${this.state.name} Soup Updated!`, error: false });
             // remove message after 2 seconds
             setTimeout(() => {
                 this.setState({ message: '' });

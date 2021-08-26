@@ -5,8 +5,9 @@ import classNames from 'classnames';
 class Create extends Component {
     state = {
         name: '',
+        // image_url: '',
         category_id: 0,
-        seasonal: '',
+        seasonal: true,
         tastiness: 0,
         categories: [],
         message: '',
@@ -42,11 +43,9 @@ class Create extends Component {
         if (data.error) {
             this.setState({ message: data.error, error: true });
         } else {
+            // if successful then redirect to home page
             this.props.history.push('/');
         }
-
-        // if successful then redirect to home page
-        // else display error
     };
 
     render() {
